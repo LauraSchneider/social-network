@@ -1,5 +1,7 @@
 import React from 'react';
-import axios from 'axios';
+import axios from './axios';
+import { Link } from 'react-router-dom';
+
 
 export default class Registration extends React.Component {
     constructor() {
@@ -25,6 +27,11 @@ export default class Registration extends React.Component {
             console.log("waiting for server RESP", resp);
             if(resp.data.success) {
                 location.replace('/');
+            } else {
+                this.setState({
+                    error: true,
+                    errorMessage: resp.data.errorMessage
+                },() => {console.log(this.state)})
             }
         })
      }
@@ -38,6 +45,9 @@ export default class Registration extends React.Component {
     render() {
         const { first, last, email, password } = this.state
         return (
+            <div>
+                {this.state.error && <div>{this.state.errorMessage}</div>}
+                <div className="form-container">
             <form>
                 <input onChange={ this.handleChange } name="first" type="text" placeholder="First Name"/>
                 <input onChange={ this.handleChange } name="last" type="text" placeholder="Last Name"/>
@@ -45,6 +55,9 @@ export default class Registration extends React.Component {
                 <input onChange={ this.handleChange } name="password" type="password" placeholder="Password"/>
                 <button onClick={ this.handleSubmit }>Submit</button>
             </form>
+                </div>
+            <Link id="link" to="/login">Click here to Login!</Link>
+        </div>
         )
     }
 }

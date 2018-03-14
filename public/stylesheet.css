@@ -1,0 +1,40 @@
+body {
+    background-color: rgb(221, 227, 220);
+}
+
+.form-container {
+    display: flex;
+    border: 2px red solid;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+
+
+
+
+}
+input {
+    background-color: rgb(206, 207, 242);
+    height: 30px;
+    width: 150px;
+    font-size: 18px;
+    padding: 5px;
+
+/*     margin-bottom:2px;
+    marg */
+}
+
+button {
+    background-color: rgb(142, 145, 255);
+    height: 45px;
+    width: 150px;
+    margin-left: 20px;
+}
+
+#link {
+    border: 2px blue solid;
+    margin: 20px;
+    font-size: 20px;
+    color: darkturquoise;
+
+}
