@@ -1,5 +1,5 @@
 const spicedPg = require("spiced-pg");
-const {dbUser, dbPass} = require('./secrets.json');
+const {dbUser, dbPass} = require('./config/secrets.json');
 const db = spicedPg(`postgres:${dbUser}:${dbPass}@localhost:5432/socialnetwork`);
 
 
@@ -18,12 +18,25 @@ function insertUserInfo(first, last, email, password) {
 
 function checkCredentials(email) {
     return new Promise((resolve, reject) => {
-        const q = "SELECT hash, id FROM users WHERE email = $1";
+        const q = `SELECT hash, id FROM users WHERE email = $1`;
         const params = [email];
-        db.query(q, params).then(function(results) {
+        db.query(q, params).then(results => {
             // console.log("HASH BACK", results);
             resolve(results);
-        }).catch(function(err) {
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
+function getUserInfo(id) {
+    return new Promise((resolve, reject) => {
+        const q = `SELECT id, first, last, email, url FROM users WHERE id =$1`;
+        const params = [id];
+        db.query(q, params).then(results => {
+            console.log("RRESULTS", results);
+            resolve(results);
+        }).catch(err => {
             reject(err);
         });
     });
@@ -31,4 +44,5 @@ function checkCredentials(email) {
 module.exports = {
     insertUserInfo,
     checkCredentials,
+    getUserInfo,
 };
