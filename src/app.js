@@ -1,52 +1,118 @@
+//CLIENT SIDE
+
 import React from 'react';
-import axios from 'axios';
+import axios from './axios';
+import ProfilePic from './profilepic'
+import ProfilePicUpload from './profilepicupload'
 import Logo from './logo';
-import Profilepic from './profilepic';
-import Profilepicupload from './profilepicupload';
+import Profile from './profile';
+import {BrowserRouter, Route} from 'react-router-dom';
+import BioUpload from './bioUpload';
 
 export default class App extends React.Component {
     constructor(props) {
-        super(props)
-
+        super(props);
         this.state = {
             id: '',
             first: '',
             last: '',
             email: '',
-            url: '',
-            showUploader: false
-
+            url: 'https://res.cloudinary.com/closebrace/image/upload/w_400/v1491315007/usericon_id76rb.png',
+            bio: '',
+            showUploader: false,
+            showBio: false,
         };
-        this.toggleuploader = this.toggleuploader.bind(this);
-    }
-toggleUploader() {
-    this.setState({ showUploader: !this.state.showUploader })
-}
-    componentDidMount() {
-        axios.get('/user').then(resp => {
-            // console.log("RESP", resp);
-            const { id, first, last, email, url } = resp.data.data;
-            this.setState(
-                {id: id, first: first, last: last, email: email, url: url }
-            )}, () => {
-            console.log("new state", this.state);
+        this.setImage = this.setImage.bind(this);
+        this.toggleUploader = this.toggleUploader.bind(this);
+        this.toggleBio = this.toggleBio.bind(this);
+        this.setBio = this.setBio.bind(this);
 
+    }
+    toggleUploader() {
+        this.setState({
+            showUploader: !this.state.showUploader
+        })
+    }
+    toggleBio() {
+        this.setState({
+            showBio: !this.state.showBio
+        })
+    }
+    componentDidMount() {
+        console.log("COMPONENT DID MOUNT");
+        axios.get('/user').then(resp => {
+            console.log("RESPONSES PLS", resp);
+            const {id, first, last, email, url, bio} = resp.data;
+            this.setState({
+                id,
+                first,
+                last,
+                email,
+                url: url || this.state.url,
+                bio
+
+            })
+        }, () => {
+            console.log("new state", this.state);
         });
     }
-render() {
-    return (
-        <div>
-            <h1>Welcome {this.state.first} at {this.state.email}</h1>
-            <Profilepic
-                first = {laura}
-                last = {s}
-                url = {www.url.com}
-                />
-        </div>
-
-        )
+    setImage(url) {
+        this.setState({url})
     }
+
+    setBio(bio) {
+        this.setState({bio})
 }
 
-{/*toggleuploader = {this.state.toggleUploader}*/}
-{/*{ this.state.showUploader && <Profilepicupload  }*/}
+
+    render() {
+        const {
+            first,
+            last,
+            url,
+            email,
+            bio,
+            showUploader
+        } = this.state
+        return (<div>
+            <Logo/>
+            <p>Welcome {first}
+                at {email}</p>
+            <ProfilePic
+                first={first}
+                last={last}
+                url={url}
+                toggleUploader={this.toggleUploader}
+
+                />
+             {showUploader && <ProfilePicUpload setImage={this.setImage}
+                />
+
+    }
+    { this.state.showBio && <BioUpload setBio={this.setBio}
+    />}
+                <BrowserRouter>
+                <div>
+                    <Route
+                        path="/"
+                        render={() => (
+                            <Profile
+
+                                first={first}
+                                last={last}
+                                url={url}
+                                bio={bio}
+                                setBio={this.setBio}
+                                toggleBio={this.toggleBio}
+                            />
+
+
+                        )}
+                    />
+                </div>
+            </BrowserRouter>
+
+
+        </div>)
+    }
+}

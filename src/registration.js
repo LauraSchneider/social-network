@@ -22,7 +22,7 @@ export default class Registration extends React.Component {
      handleSubmit(e){
          e.preventDefault();
          console.log("my first LOG", this.state);
-         //connecting to registration with this state to server
+         //connecting to registration with this.state to server
         axios.post('/registration', this.state).then((resp) => {
             console.log("waiting for server RESP", resp);
             if(resp.data.success) {
