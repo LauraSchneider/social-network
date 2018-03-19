@@ -8,6 +8,7 @@ import Logo from './logo';
 import Profile from './profile';
 import {BrowserRouter, Route} from 'react-router-dom';
 import BioUpload from './bioUpload';
+import OtherProfile from './otherprofile';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -41,7 +42,7 @@ export default class App extends React.Component {
     componentDidMount() {
         console.log("COMPONENT DID MOUNT");
         axios.get('/user').then(resp => {
-            console.log("RESPONSES PLS", resp);
+            // console.log("RESPONSES PLS", resp);
             const {id, first, last, email, url, bio} = resp.data;
             this.setState({
                 id,
@@ -55,6 +56,7 @@ export default class App extends React.Component {
         }, () => {
             console.log("new state", this.state);
         });
+
     }
     setImage(url) {
         this.setState({url})
@@ -109,9 +111,9 @@ export default class App extends React.Component {
 
                         )}
                     />
+                    <Route exact path="/user/:id" component={ OtherProfile } />
                 </div>
             </BrowserRouter>
-
 
         </div>)
     }

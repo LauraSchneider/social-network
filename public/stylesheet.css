@@ -1,10 +1,22 @@
 body {
-    background-color: rgb(221, 227, 220);
+    background-color:white;
+    margin: 0;
 }
 
+/* .banner-container {
+    background-image: url("./img/banner.png");
+/*     background-size:1000px 500px; */
+    background-size:100%;
+    background-repeat: no-repeat;
+/*     background-position: center; */
+    height: 640px;
+    width: auto;
+    background-color: black;
+
+} */
 .form-container {
     display: flex;
-    border: 2px red solid;
+    border: 2px green solid;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;

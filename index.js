@@ -59,10 +59,7 @@ const uploader = multer({
 app.post('/profilepicupload', uploader.single('file'), s3.upload, (req, res) => {
     db.updatePic(req.file.filename, req.session.id).then(() => {
         const url = s3Url + req.file.filename;
-        res.json({
-            success: true,
-            url
-        });
+        res.json({success: true, url});
     });
 });
 
@@ -137,7 +134,6 @@ app.post('/login', (req, res) => {
     }
 });
 
-
 app.get('/user', (req, res) => {
     console.log("SLASH USER ROUTE");
     db.getUserInfo(req.session.id).then(results => {
@@ -151,19 +147,40 @@ app.get('/user', (req, res) => {
             last: results.last,
             email: results.email,
             url: results.url,
-            bio: results.bio,
+            bio: results.bio
         });
     });
 });
 
 app.post('/bio', (req, res) => {
-    db.updateBio(req.body.bio, req.session.id).then(() => {res.json({
-        success: true,
-        bio: req.body.bio});
+    db.updateBio(req.body.bio, req.session.id).then(() => {
+        res.json({success: true, bio: req.body.bio});
     });
 });
 
-app.get('*', function(req, res) {       //catch all route --> you can tell by the star
+app.get('/get-user/:id', (req, res) => {
+    if (req.session.id == req.params.id) {
+        res.json({success: false})
+    } else {
+        // console.log("ReQ PARAMS", req.params);
+        db.getUserInfo(req.params.id).then(results => {
+            if (results.url) {
+                results.url = s3Url + results.url;
+            }
+            res.json({
+                id: results.id,
+                first: results.first,
+                last: results.last,
+                email: results.email,
+                url: results.url,
+                bio: results.bio
+            });
+        });
+
+    }
+});
+
+app.get('*', function(req, res) { //catch all route --> you can tell by the star
     res.sendFile(__dirname + '/index.html');
 });
 

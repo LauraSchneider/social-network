@@ -63,6 +63,9 @@ function updateBio (bio, id) {
         });
     });
 }
+
+
+
 module.exports = {
     insertUserInfo,
     checkCredentials,
