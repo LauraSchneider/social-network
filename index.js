@@ -56,13 +56,6 @@ const uploader = multer({
     }
 });
 
-app.post('/profilepicupload', uploader.single('file'), s3.upload, (req, res) => {
-    db.updatePic(req.file.filename, req.session.id).then(() => {
-        const url = s3Url + req.file.filename;
-        res.json({success: true, url});
-    });
-});
-
 function checkPassword(textEnteredInLoginForm, hashedPasswordFromDatabase) {
     return new Promise(function(resolve, reject) {
         bcrypt.compare(textEnteredInLoginForm, hashedPasswordFromDatabase, function(err, doesMatch) {
@@ -135,12 +128,10 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-    console.log("SLASH USER ROUTE");
     db.getUserInfo(req.session.id).then(results => {
         if (results.url) {
             results.url = s3Url + results.url;
         }
-        console.log("GIVING RESULTS", results);
         res.json({
             id: results.id,
             first: results.first,
@@ -152,38 +143,87 @@ app.get('/user', (req, res) => {
     });
 });
 
-app.post('/bio', (req, res) => {
-    db.updateBio(req.body.bio, req.session.id).then(() => {
-        res.json({success: true, bio: req.body.bio});
+app.get('/get-user/:id', (req, res) => {
+    if (req.session.id == req.params.id) {
+        res.json({success: false});
+    } else {
+        Promise.all([
+            db.getUserInfo(req.params.id),
+            db.getStatus(req.session.id, req.params.id)
+        ]).then(([otherUserInfo, friendshipInfo]) => {
+            if (otherUserInfo.url) {
+                otherUserInfo.url = s3Url + otherUserInfo.url;
+            }
+            // console.log("BIG FATTT LABELL AS FUN", otherUserInfo);
+            res.json({
+                id: otherUserInfo.id,
+                first: otherUserInfo.first,
+                last: otherUserInfo.last,
+                email: otherUserInfo.email,
+                url: otherUserInfo.url,
+                bio: otherUserInfo.bio,
+                sender_id: (friendshipInfo && friendshipInfo.sender_id) || null,
+                recipient_id: (friendshipInfo && friendshipInfo.recipient_id) || null,
+                status: (friendshipInfo && friendshipInfo.status) || 0
+            });
+        }).catch(err => {
+            console.log("error in getUser", err);
+        });
+    }
+});
+
+app.post('/profilepicupload', uploader.single('file'), s3.upload, (req, res) => {
+    db.updatePic(req.file.filename, req.session.id).then(() => {
+        const url = s3Url + req.file.filename;
+        res.json({success: true, url});
     });
 });
 
-app.get('/get-user/:id', (req, res) => {
-    if (req.session.id == req.params.id) {
-        res.json({success: false})
+app.post('/bio', (req, res) => {
+    db.updateBio(req.body.bio, req.session.id).then(() => {
+        res.json({successs: true, bio: req.body.bio});
+    });
+});
+
+app.post(`/sendfriendrequest/:recipient_id`, (req, res) => {
+    if (req.body.status == 0) {
+        db.makeFriend(req.session.id, req.params.recipient_id, 1).then(results => {
+            res.json({success: true, status: results.rows[0].status});
+        });
+
     } else {
-        // console.log("ReQ PARAMS", req.params);
-        db.getUserInfo(req.params.id).then(results => {
-            if (results.url) {
-                results.url = s3Url + results.url;
-            }
-            res.json({
-                id: results.id,
-                first: results.first,
-                last: results.last,
-                email: results.email,
-                url: results.url,
-                bio: results.bio
-            });
+        db.updateRequest(1, req.params.recipient_id, req.session.id).then(results => {
+            res.json({success: true, status: results.status});
         });
 
     }
+    // console.log("body", req.body);
+});
+
+app.post(`/cancelfriendrequest/:recipient_id`, (req, res) => {
+    db.updateRequest(5, req.params.recipient_id, req.session.id).then(results => {
+        res.json({success: true, status: results.status});
+    });
+});
+
+app.post('/acceptfriendrequest/:recipient_id', (req, res) => {
+    console.log("BLOCK SERVER CHECK");
+    db.updateRequest(2, req.params.recipient_id, req.session.id).then(results => {
+        console.log("RESULTS SERVer", results);
+        res.json({success: true, status: results.status});
+    })
+})
+
+app.post('/terminatefriendrequest/:recipient_id', (req, res) => {
+    db.updateRequest(4, req.params.recipient_id, req.session.id).then(results => {
+        res.json({success: true, status: results.status});
+    });
 });
 
 app.get('*', function(req, res) { //catch all route --> you can tell by the star
     res.sendFile(__dirname + '/index.html');
 });
 
-app.listen(8080, function() {
+app.listen(8080, () => {
     console.log("I'm listening.");
 });

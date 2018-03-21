@@ -1,5 +1,4 @@
 //CLIENT SIDE
-
 import React from 'react';
 import axios from './axios';
 import ProfilePic from './profilepic'
@@ -9,6 +8,7 @@ import Profile from './profile';
 import {BrowserRouter, Route} from 'react-router-dom';
 import BioUpload from './bioUpload';
 import OtherProfile from './otherprofile';
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -40,7 +40,7 @@ export default class App extends React.Component {
         })
     }
     componentDidMount() {
-        console.log("COMPONENT DID MOUNT");
+        // console.log("COMPONENT DID MOUNT");
         axios.get('/user').then(resp => {
             // console.log("RESPONSES PLS", resp);
             const {id, first, last, email, url, bio} = resp.data;

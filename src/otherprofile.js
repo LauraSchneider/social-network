@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from './axios';
+import FriendRequestButton from './friendrequestbutton'
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
@@ -9,47 +10,57 @@ export default class OtherProfile extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: 'https://res.cloudinary.com/closebrace/image/upload/w_400/v1491315007/usericon_id76rb.png',
-            bio: 'No bio yet',
+            url: './images/default.jpg',
+            bio: 'Default Bio'
         };
+        this.updateStatus=this.updateStatus.bind(this)
+    }
+    componentDidMount() {
+        axios.get(`/get-user/${this.props.match.params.id}`).then(resp => {
+            if (resp.data.success === false) {
+                return this.props.history.push('/')
+            } else {
+                console.log("resp.data", resp.data);
+                const {id, first, last, email, url, bio, recipient_id, sender_id, status} = resp.data;
+                this.setState({
+                    id,
+                    first,
+                    last,
+                    email,
+                    url: url || this.state.url,
+                    bio: bio || this.state.bio,
+                    recipient_id,
+                    sender_id,
+                    status
+                })
+            }
+        }).catch(err => {
+            console.log("There was an error in getUser", err);
+        })
     }
 
-componentDidMount() {
-    // console.log("CHECKING ID", this.props.match.params.id);
-    axios.get(`/get-user/${this.props.match.params.id}`).then(resp => {
-
-        if (resp.data.success === false) {
-            return this.props.history.push('/')
-        } else {
-            // console.log("INSIDE OF COMPONENTDIDMOUNT THEN FUNCTION", resp.data);
-            const {id, first, last, email, url, bio} = resp.data;
-            this.setState({
-                id,
-                first,
-                last,
-                email,
-                url: url || this.state.url,
-                bio: bio || this.state.bio
-
-            // },
-            // () => {
-            //     console.log("Very new state", this.state);
-            })
-
-        }
-
-    })
-
+updateStatus(newStatus) {
+    this.setState({
+        status: newStatus
+    });
 }
-
-render() {
-    const {id, first, last, email, url, bio} = this.state
-    return (
-        <div>
-        <h1>Hello {first} {last} at {email}</h1>
-        <h1>Bio:{bio}</h1>
-        <img src={url} alt="Profile Picture"/>
-        </div>
-    )
+    render(){
+        const {id, first, last, email, url, bio, recipient_id, sender_id, status} = this.state
+        return(
+            <div>
+                <p>
+                    Hello {first} {last} at {email}!
+                </p>
+                <img src={url} alt="Profile Picture"/>
+                <p>{bio}</p>
+                <FriendRequestButton
+                    recipient_id={recipient_id}
+                    sender_id={sender_id}
+                    status={status}
+                    match={this.props.match}
+                    updateStatus={this.updateStatus}
+                />
+            </div>
+        )
     }
 }
