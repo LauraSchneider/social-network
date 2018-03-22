@@ -206,7 +206,7 @@ app.post(`/cancelfriendrequest/:recipient_id`, (req, res) => {
     });
 });
 
-app.post('/acceptfriendrequest/:recipient_id', (req, res) => {
+app.post(`/acceptfriendrequest/:recipient_id`, (req, res) => {
     console.log("BLOCK SERVER CHECK");
     db.updateRequest(2, req.params.recipient_id, req.session.id).then(results => {
         console.log("RESULTS SERVer", results);
@@ -214,9 +214,21 @@ app.post('/acceptfriendrequest/:recipient_id', (req, res) => {
     })
 })
 
-app.post('/terminatefriendrequest/:recipient_id', (req, res) => {
+app.post(`/terminatefriendrequest/:recipient_id`, (req, res) => {
     db.updateRequest(4, req.params.recipient_id, req.session.id).then(results => {
         res.json({success: true, status: results.status});
+    });
+});
+
+app.get('/getfriends', (req, res) => {
+    db.getFriends(req.session.id).then(results => {
+        console.log("RESULTS RESULTS", results);
+        res.json({
+            success: true,
+            friends: results
+
+        });
+
     });
 });
 

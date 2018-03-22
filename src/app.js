@@ -8,6 +8,7 @@ import Profile from './profile';
 import {BrowserRouter, Route} from 'react-router-dom';
 import BioUpload from './bioUpload';
 import OtherProfile from './otherprofile';
+import Friends from './friends';
 
 
 export default class App extends React.Component {
@@ -99,7 +100,6 @@ export default class App extends React.Component {
                         path="/"
                         render={() => (
                             <Profile
-
                                 first={first}
                                 last={last}
                                 url={url}
@@ -112,6 +112,8 @@ export default class App extends React.Component {
                         )}
                     />
                     <Route exact path="/user/:id" component={ OtherProfile } />
+
+                    <Route exact path="/friends" component={ Friends }/>
                 </div>
             </BrowserRouter>
 

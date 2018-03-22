@@ -102,7 +102,7 @@ function updateRequest(status, recipientID, senderID) {
         RETURNING status
         `;
         const params = [status, recipientID, senderID];
-        db.query(q,params).then(results => {
+        db.query(q, params).then(results => {
             resolve(results.rows[0]);
         }).catch(err => {
             reject(err);
@@ -111,16 +111,34 @@ function updateRequest(status, recipientID, senderID) {
     });
 }
 
-
+//userID is the id from pending friends
+function getFriends(userID) {
+    return new Promise((resolve, reject) => {
+        const q = `
+    SELECT users.id, first, last, url, status
+    FROM friendships
+    JOIN users
+    ON (status = 1 AND recipient_id = $1 AND sender_id = users.id)
+    OR (status = 2 AND recipient_id = $1 AND sender_id = users.id)
+    OR (status = 2 AND sender_id = $1 AND recipient_id = users.id)
+    `;
+        const params = [userID];
+        db.query(q, params).then(results => {
+            resolve(results.rows);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
 
 module.exports = {
-    insertUserInfo,
-    checkCredentials,
-    getUserInfo,
-    updatePic,
-    updateBio,
-    makeFriend,
-    getStatus,
-    updateRequest
-
+insertUserInfo,
+checkCredentials,
+getUserInfo,
+updatePic,
+updateBio,
+makeFriend,
+getStatus,
+updateRequest,
+getFriends
 };
