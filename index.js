@@ -216,13 +216,19 @@ app.post(`/acceptfriendrequest/:recipient_id`, (req, res) => {
 
 app.post(`/terminatefriendrequest/:recipient_id`, (req, res) => {
     db.updateRequest(4, req.params.recipient_id, req.session.id).then(results => {
-        res.json({success: true, status: results.status});
+        res.json({success: true,
+            status: results.status,
+            recipient_id: results.recipient
+        });
     });
 });
 
 app.get('/getfriends', (req, res) => {
     db.getFriends(req.session.id).then(results => {
-        console.log("RESULTS RESULTS", results);
+        if (results.url) {
+            results.url = s3Url + results.url;
+        }
+        // console.log("RESULTS RESULTS", results);
         res.json({
             success: true,
             friends: results

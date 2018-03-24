@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from './axios';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 export default class Login extends React.Component {
     constructor() {
         super()
@@ -27,7 +27,8 @@ export default class Login extends React.Component {
                 this.setState({
                     error: true,
                     errorMessage: resp.data.errorMessage
-                },() => {console.log(this.state);
+                }, () => {
+                    console.log(this.state);
                 })
             }
         })
@@ -42,16 +43,22 @@ export default class Login extends React.Component {
     render() {
         const {email, password} = this.state
         return (
-        <div>
+            <body class="welcome-body">
+                <div>
             {this.state.error && <div>{this.state.errorMessage}</div>}
-            <form>
-            <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>
-            <input onChange={this.handleChange} name="password" type="password" placeholder="Password"/>
-            <button onClick={this.handleSubmit}>Submit</button>
-        </form>
+            <div class="link-container">
+                <p>Click <Link id="register-link" to="/">here</Link> to Register!</p>
+            </div>
+            <div className="login-form-container">
+                <form>
+                    <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>
+                    <input onChange={this.handleChange} name="password" type="password" placeholder="Password"/>
+                    <button id="login-button" onClick={this.handleSubmit}>Submit</button>
+                </form>
+            </div>
 
-
-        <Link to="/">Click here to Register!</Link>
-    </div>)
+        </div>
+    </body>
+)
     }
 }

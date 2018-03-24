@@ -7,6 +7,14 @@ export function getFriends() {
     });
 }
 
+// export function terminateFriendship(recipient_id) {
+//     return axios.post(`/terminatefriendship/${recipient_id}` ).then(resp => {
+//         return {
+//             type: 'END_FRIENDS',
+//             recipient_id: resp.data.recipien_id
+//         };
+//     });
+// }
 // export function makeFriends() {
 //     return axios.get('/friends').then(function({ data }) {
 //         return {

@@ -62,6 +62,7 @@ export default class FriendRequestButton extends React.Component {
 }
 
     render() {
+    
         return (
             <div>
                 <button onClick={this.handleSubmit}>{this.renderButtonText()}</button>

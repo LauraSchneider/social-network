@@ -1,53 +1,109 @@
 body {
-    background-color:white;
+
     margin: 0;
 }
 
-/* .banner-container {
-    background-image: url("./img/banner.png");
-    background-size:100% 500px;
-/* background-image: url(".img/tester.png"); */
-    /* background-size:100%; */
-    background-repeat: no-repeat;
-/*     background-position: center; */
-    height: 640px; */
-    width: auto;
-    /* background-color: black; */
 
-} */
-.form-container {
+/* --------Welcome---------------------------------------------- */
+.welcome-body {
+      background-color:black;
+}
+.welcome-container {
+    background-image: url("./img/welcome-banner-opt1.png");
+    background-size:100% 250px;
+    background-repeat: no-repeat;
+    height: 250px;
+/*     border: 2px green solid; */
+}
+
+.welcome-message {
+/*     border: 3px blue dashed; */
+    color: #00a3ff;
+    font-family: 'Cabin', sans-serif;
+    font-size: 20px;
     display: flex;
-    border: 2px green solid;
-    flex-wrap: wrap;
+    justify-content: center;
+}
+.welcome-form-container {
+    display: flex;
+/*     border: 2px red solid; */
+/*     flex-wrap: wrap; */
     justify-content: center;
     padding: 20px;
-
-
-
+    width: 40%;
+    margin-left: 35%;
 
 }
+
 input {
-    background-color: rgb(206, 207, 242);
-    height: 30px;
-    width: 150px;
+/*     background-color: rgb(206, 207, 242); */
+      background-color: rgb(242, 239, 245);
+    height: 20px;
+    width: 130px;
     font-size: 18px;
     padding: 5px;
-
-/*     margin-bottom:2px;
-    marg */
+    margin: 7px;
+    border: 2px #fe1bee solid;
 }
 
-button {
-    background-color: rgb(142, 145, 255);
-    height: 45px;
-    width: 150px;
-    margin-left: 20px;
+#welcome-button {
+    /* align-self: center; */
+    background-color: rgb(106, 155, 255);
+    height: 34px;
+    width: 96px;
+   font-family: 'Cabin', sans-serif;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-left: 35px;
+    border: 3px #fd23cf solid;
+
 }
 
-#link {
-    border: 2px blue solid;
-    margin: 20px;
+.link-container {
+/*     border: 2px aqua solid; */
+    display: flex;
+    justify-content: center;
+    color: #00a3ff;
+    font-family: 'Cabin', sans-serif;
     font-size: 20px;
-    color: darkturquoise;
+    margin-top: -30px;
+}
 
+#login-link {
+/*     border: 2px blue solid; */
+    color: #00a3ff;
+
+}
+
+/* --------Login---------------------------------------------- */
+.login-form-container {
+        display: flex;
+/*     border: 2px red solid; */
+/*     flex-wrap: wrap; */
+    justify-content: center;
+    padding: 20px;
+    width: 40%;
+    margin-left: 30%;
+}
+
+#login-button {
+    background-color: rgb(106, 155, 255);
+    height: 34px;
+    width: 96px;
+       font-family: 'Cabin', sans-serif;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-left: 35px;
+    border: 3px #fd23cf solid;
+
+}
+
+#register-link {
+    color: #00a3ff;
+
+}
+
+/* --------user page---------------------------------------------- */
+.logo {
+    border: 3px green solid;
 }

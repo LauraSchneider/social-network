@@ -45,19 +45,24 @@ export default class Registration extends React.Component {
     render() {
         const { first, last, email, password } = this.state
         return (
-            <div>
+            <body class="welcome-body">
+            <div class="holder">
                 {this.state.error && <div>{this.state.errorMessage}</div>}
-                <div className="form-container">
-            <form>
-                <input onChange={ this.handleChange } name="first" type="text" placeholder="First Name"/>
-                <input onChange={ this.handleChange } name="last" type="text" placeholder="Last Name"/>
-                <input onChange={ this.handleChange } name="email" type="text" placeholder="Email"/>
-                <input onChange={ this.handleChange } name="password" type="password" placeholder="Password"/>
-                <button onClick={ this.handleSubmit }>Submit</button>
-            </form>
+                <p class="welcome-message"> Sign up below.</p>
+                <div class="link-container">
+                    <p>Already Registered? Click <Link id="login-link" to="/login">here</Link> to Login!</p>
                 </div>
-            <Link id="link" to="/login">Click here to Login!</Link>
+                <div className="welcome-form-container">
+                    <form>
+                        <input onChange={ this.handleChange } name="first" type="text" placeholder="First Name"/>
+                        <input onChange={ this.handleChange } name="last" type="text" placeholder="Last Name"/>
+                        <input onChange={ this.handleChange } name="email" type="text" placeholder="Email"/>
+                        <input onChange={ this.handleChange } name="password" type="password" placeholder="Password"/>
+                        <button id="welcome-button" onClick={ this.handleSubmit }>Submit</button>
+                    </form>
+                </div>
         </div>
+    </body>
         )
     }
 }

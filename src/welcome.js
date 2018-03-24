@@ -7,12 +7,16 @@ import { HashRouter, Route } from 'react-router-dom';
 
 export default function Welcome(props) {
     return (
+        <body class="welcome-body">
         <div id="welcome">
 
-            <div className="banner-container">
+            <div className="welcome-container">
             </div>
 
-            <Logo />
+            {/*<Logo />*/}
+
+            <p class="welcome-message">Welcome! Come join us on awesome outdoor activities.</p>
+            <p class="welcome-message"> Let's meet up and have fun!</p>
 
             <HashRouter>
                 <div>
@@ -20,8 +24,9 @@ export default function Welcome(props) {
                     <Route path="/login" component={Login} />
                 </div>
             </HashRouter>
-            
+
         </div>
+    </body>
     )
 
 }
