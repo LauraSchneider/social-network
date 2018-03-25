@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from './axios';
 import {Link} from 'react-router-dom';
+import Logo from './logo';
+
 export default class Login extends React.Component {
     constructor() {
         super()
@@ -43,22 +45,35 @@ export default class Login extends React.Component {
     render() {
         const {email, password} = this.state
         return (
-            <body class="welcome-body">
-                <div>
-            {this.state.error && <div>{this.state.errorMessage}</div>}
-            <div class="link-container">
-                <p>Click <Link id="register-link" to="/">here</Link> to Register!</p>
-            </div>
-            <div className="login-form-container">
-                <form>
-                    <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>
-                    <input onChange={this.handleChange} name="password" type="password" placeholder="Password"/>
-                    <button id="login-button" onClick={this.handleSubmit}>Submit</button>
-                </form>
-            </div>
 
-        </div>
-    </body>
-)
+            <div id="login-container">
+                {this.state.error && <div>{this.state.errorMessage}</div>}
+                <div id="strip1-container">
+                    <img src="./img/strip1.png"/>
+                </div>
+                <div className="logo-and-form">
+                <div className="logo-container">
+                    <Logo/>
+                </div>
+                <div id="login-info-container">
+                    <p id="back" className="welcome-message">Welcome back!</p>
+                <div className="link-container">
+                    <p>Not registered yet? Click <Link id="register-link" to="/">here.</Link></p>
+                </div>
+                <div className="login-form-container">
+                    <form>
+                        <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>
+                        <input onChange={this.handleChange} name="password" type="password" placeholder="Password"/>
+                        <button id="login-button" onClick={this.handleSubmit}>Submit</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+                <div id="strip2-container">
+                    <img src="./img/strip2.png"/>
+                </div>
+
+            </div>
+        )
     }
 }

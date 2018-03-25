@@ -4,10 +4,12 @@ export default function ProfilePic(props) {
 
     return (
 
-     <img
+<div id="profilepic-container">
+     <img id="profilepicupload"
          onClick={props.toggleUploader}
          src={ props.url }
          alt={`${props.first} ${props.last}`}
      />
+ </div>
  )
 }

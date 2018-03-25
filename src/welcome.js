@@ -10,14 +10,6 @@ export default function Welcome(props) {
         <body class="welcome-body">
         <div id="welcome">
 
-            <div className="welcome-container">
-            </div>
-
-            {/*<Logo />*/}
-
-            <p class="welcome-message">Welcome! Come join us on awesome outdoor activities.</p>
-            <p class="welcome-message"> Let's meet up and have fun!</p>
-
             <HashRouter>
                 <div>
                     <Route exact path="/" component={Registration} />

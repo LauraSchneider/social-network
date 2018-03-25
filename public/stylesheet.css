@@ -1,17 +1,24 @@
-body {
+html, body {
 
     margin: 0;
+/*     border: 3px red solid; */
+/*     height: 100%; */
 }
 
 
 /* --------Welcome---------------------------------------------- */
-.welcome-body {
+html, .welcome-body {
       background-color:black;
 }
 .welcome-container {
-    background-image: url("./img/welcome-banner-opt1.png");
+
+    background-image: url("./img/web-banner-opt3.png");
+    /* background-size:100% 500px;
+    height: 500px; */
+
+/*     background-image: url("./img/welcome-banner-opt1.png"); */
     background-size:100% 250px;
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     height: 250px;
 /*     border: 2px green solid; */
 }
@@ -20,17 +27,24 @@ body {
 /*     border: 3px blue dashed; */
     color: #00a3ff;
     font-family: 'Cabin', sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     display: flex;
     justify-content: center;
+    margin-top: 30px;
+}
+
+#registered {
+/*     border: 2px blue solid; */
+    padding: 3px;
+    margin-top: 40px;
+    margin-left: -30px;
 }
 .welcome-form-container {
     display: flex;
 /*     border: 2px red solid; */
-/*     flex-wrap: wrap; */
     justify-content: center;
     padding: 20px;
-    width: 40%;
+    width: 33%;
     margin-left: 35%;
 
 }
@@ -76,25 +90,77 @@ input {
 }
 
 /* --------Login---------------------------------------------- */
+#login-container {
+/*     border: 3px red solid; */
+    display: flex;
+    justify-content: column;
+
+}
+
+#strip1-container {
+/*     border: 2px blue solid; */
+    width: 320px;
+    flex: 1;
+    padding-right: 10%;
+}
+
+
+#strip2-container {
+/*     border: 2px yellow solid; */
+    width: 320px;
+    flex: 1;
+    padding-left: 10%;
+
+}
+
+.logo-container {
+    display: flex;
+    border: 1px red solid;
+    justify-content: center;
+    align-item: center;
+    flex: 2;
+    padding-top: 5%;
+
+
+}
+
+.logo {
+    height: 150px;
+    width: 180px;
+
+}
 .login-form-container {
         display: flex;
-/*     border: 2px red solid; */
+/*     border: 2px red dashed; */
 /*     flex-wrap: wrap; */
     justify-content: center;
     padding: 20px;
     width: 40%;
     margin-left: 30%;
+    padding-top: 10%;
+
+}
+
+#login-info-container {
+    border: 3px green solid;
+    margin-top: 20%;
+}
+
+.logo-and-form {
+    border: 4px blue solid;
+    flex: 2;
 }
 
 #login-button {
     background-color: rgb(106, 155, 255);
     height: 34px;
     width: 96px;
-       font-family: 'Cabin', sans-serif;
+    font-family: 'Cabin', sans-serif;
     font-size: 15px;
     border-radius: 10px;
     margin-left: 35px;
     border: 3px #fd23cf solid;
+    margin-top: 20%;
 
 }
 
@@ -103,7 +169,47 @@ input {
 
 }
 
+#back {
+    font-size: 35px;
+}
 /* --------user page---------------------------------------------- */
-.logo {
+ .logo {
+/*     border: 3px green solid; */
+}
+
+#app-logo-container {
     border: 3px green solid;
+    display: flex;
+    justify-content: center;
+}
+
+ #profilepicupload {
+     /* border: 2px red solid; */
+     height: 250px;
+     border-radius: 20px;
+ }
+
+#app-user-greeting {
+    border: 2px blue dotted;
+    display: flex;
+    justify-content: center;
+    font-family: 'Cabin', sans-serif;
+    color: green;
+    font-size: 25px;
+
+}
+ #profilepic-container {
+     border: 1px yellow solid;
+ }
+
+#pic-button {
+    border: 3px #fd23cf solid;
+    background-color: rgb(106, 155, 255);
+    height: 34px;
+    width: 96px;
+    font-family: 'Cabin', sans-serif;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-left: 35px;
+
 }

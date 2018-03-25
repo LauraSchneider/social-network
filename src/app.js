@@ -77,9 +77,12 @@ export default class App extends React.Component {
             bio,
             showUploader
         } = this.state
-        return (<div>
+        return (
+            <div>
+                <div id="app-logo-container">
             <Logo/>
-            <p>Welcome {first}
+            </div>
+            <p id="app-user-greeting">Welcome {first}  
                 at {email}</p>
             <ProfilePic
                 first={first}

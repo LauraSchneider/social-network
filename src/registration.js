@@ -45,12 +45,16 @@ export default class Registration extends React.Component {
     render() {
         const { first, last, email, password } = this.state
         return (
-            <body class="welcome-body">
-            <div class="holder">
+            <body className="welcome-body">
+                <div className="welcome-container">
+                </div>
+            <div className="holder">
                 {this.state.error && <div>{this.state.errorMessage}</div>}
-                <p class="welcome-message"> Sign up below.</p>
-                <div class="link-container">
-                    <p>Already Registered? Click <Link id="login-link" to="/login">here</Link> to Login!</p>
+<p className="welcome-message">Welcome! Come join us on awesome outdoor activities.</p>
+<p class="welcome-message"> Let's meet up and have fun!</p>
+                <p className="welcome-message"> Sign up below.</p>
+                <div className="link-container">
+                    <p id="registered">Already Registered? Click <Link id="login-link" to="/login">here</Link> to Login!</p>
                 </div>
                 <div className="welcome-form-container">
                     <form>

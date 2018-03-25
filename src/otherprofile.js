@@ -51,7 +51,7 @@ updateStatus(newStatus) {
                 <p>
                     Hello {first} {last} at {email}!
                 </p>
-                <img src={url} alt="Profile Picture"/>
+                <img id="profilepic" src={url} alt="Profile Picture"/>
                 <p>{bio}</p>
                 <FriendRequestButton
                     recipient_id={recipient_id}

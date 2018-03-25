@@ -29,7 +29,7 @@ export default class ProfilePicUpload extends React.Component {
         return (<div>
             <form>
                 <input onChange={this.handleChange} name="profilepic" type="file"/>
-                <button onClick={this.handleSubmit}>SUBMIT</button>
+                <button id="pic-button" onClick={this.handleSubmit}>SUBMIT</button>
             </form>
         </div>)
     }
