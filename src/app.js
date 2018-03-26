@@ -82,7 +82,7 @@ export default class App extends React.Component {
                 <div id="app-logo-container">
             <Logo/>
             </div>
-            <p id="app-user-greeting">Welcome {first}  
+            <p id="app-user-greeting">Welcome {first}
                 at {email}</p>
             <ProfilePic
                 first={first}

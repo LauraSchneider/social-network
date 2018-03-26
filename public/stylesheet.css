@@ -8,7 +8,7 @@ html, body {
 
 /* --------Welcome---------------------------------------------- */
 html, .welcome-body {
-      background-color:black;
+      background-color:beige;
 }
 .welcome-container {
 
@@ -212,4 +212,12 @@ input {
     border-radius: 10px;
     margin-left: 35px;
 
+}
+
+.bio-form {
+background-color: aqua;
+height: 300px;
+width: 400px;
+border: 5px blue solid;
+color: green;
 }

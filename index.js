@@ -31,12 +31,7 @@ app.use(cookieSession({
     maxAge: 1000 * 60 * 60 * 24 * 14
 }));
 
-app.use(csrf());
 
-app.use(function(req, res, next) {
-    res.cookie('mytoken', req.csrfToken());
-    next();
-});
 
 var diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -83,6 +78,14 @@ function hashPassword(plainTextPassword) {
         });
     });
 }
+
+
+app.use(csrf());
+
+app.use(function(req, res, next) {
+    res.cookie('mytoken', req.csrfToken());
+    next();
+});
 
 app.post('/registration', (req, res) => {
     if (!req.body.first || !req.body.last || !req.body.email || !req.body.password) {
