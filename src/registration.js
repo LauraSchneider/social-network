@@ -44,29 +44,31 @@ export default class Registration extends React.Component {
 
     render() {
         const { first, last, email, password } = this.state
-        return (
-            <body className="welcome-body">
-                <div className="welcome-container">
-                </div>
-            <div className="holder">
-                {this.state.error && <div>{this.state.errorMessage}</div>}
+        return(
+
+        <body className="welcome-body">
+            <div className="welcome-container">
+            </div>
+        <div className="holder">
+            {this.state.error && <div className="error">{this.state.errorMessage}</div>}
 <p className="welcome-message">Welcome! Come join us on awesome outdoor activities.</p>
 <p class="welcome-message"> Let's meet up and have fun!</p>
-                <p className="welcome-message"> Sign up below.</p>
-                <div className="link-container">
-                    <p id="registered">Already Registered? Click <Link id="login-link" to="/login">here</Link> to Login!</p>
-                </div>
-                <div className="welcome-form-container">
-                    <form>
-                        <input onChange={ this.handleChange } name="first" type="text" placeholder="First Name"/>
-                        <input onChange={ this.handleChange } name="last" type="text" placeholder="Last Name"/>
-                        <input onChange={ this.handleChange } name="email" type="text" placeholder="Email"/>
-                        <input onChange={ this.handleChange } name="password" type="password" placeholder="Password"/>
-                        <button id="welcome-button" onClick={ this.handleSubmit }>Submit</button>
-                    </form>
-                </div>
-        </div>
-    </body>
-        )
-    }
+            <p className="welcome-message"> Sign up below.</p>
+            <div className="link-container">
+                <p id="registered">Already Registered? Click <Link id="login-link" to="/login">here</Link> to Login!</p>
+            </div>
+            <div className="welcome-form-container">
+                <form>
+                    <input onChange={ this.handleChange } name="first" type="text" placeholder="First Name"/>
+                    <input onChange={ this.handleChange } name="last" type="text" placeholder="Last Name"/>
+                    <input onChange={ this.handleChange } name="email" type="text" placeholder="Email"/>
+                    <input onChange={ this.handleChange } name="password" type="password" placeholder="Password"/>
+                    <button id="welcome-button" onClick={ this.handleSubmit }>Submit</button>
+                </form>
+            </div>
+    </div>
+</body>)
 }
+
+
+    }

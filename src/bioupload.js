@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from './axios';
 
+
 export default class BioUpload extends React.Component {
     constructor(props) {
         super(props);
@@ -26,10 +27,10 @@ export default class BioUpload extends React.Component {
 
     render() {
         return (
-            <div className="bio-form">
-                <form>
-                    <textarea onChange={this.handleChange} name="newBio"></textarea>
-                    <button onClick={this.handleSubmit}>SUBMIT</button>
+            <div className="bio-container">
+                <form className="bio-form">
+                    <textarea id="textarea-form" placeholder="Insert text here" onChange={this.handleChange} name="newBio"></textarea>
+                    <button id="bio-button" onClick={this.handleSubmit}>SUBMIT</button>
                 </form>
             </div>
         )

@@ -7,18 +7,18 @@ import { HashRouter, Route } from 'react-router-dom';
 
 export default function Welcome(props) {
     return (
-        <body class="welcome-body">
-        <div id="welcome">
+
+            <div id="welcome">
 
             <HashRouter>
-                <div>
+<div>
                     <Route exact path="/" component={Registration} />
                     <Route path="/login" component={Login} />
-                </div>
+</div>
             </HashRouter>
 
-        </div>
-    </body>
+            </div>
+
     )
 
 }

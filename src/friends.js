@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 
 
 const mapStateToProps = state => {
-    console.log("MAP STATE", state);
-
     return {
         pendingFriends: state.friends && state.friends.filter(friend => friend.status == 1),
         acceptedFriends: state.friends && state.friends.filter(friend => friend.status == 2)
@@ -31,22 +29,27 @@ class Friends extends React.Component {
         const pendingFriendsList = this.props.pendingFriends.map((pending, id) => (
         <div key={id}>
             <h1>{pending.first} {pending.last}</h1>
-            <Link to={`/user/${pending.id}`}> <img src={pending.url} alt="Profile Pic"/></Link>
+            <Link to={`/user/${pending.id}`}> <img src={pending.url || "/img/profile_pic.jpg"} alt="Profile Pic"/></Link>
             <button onClick={() =>{this.props.dispatch(acceptFriends(pending.id))}}>Accept</button>
         </div>
     ))
         const acceptedFriendsList = this.props.acceptedFriends.map((accepted, id) => (
         <div key={id}>
-            <h1>{accepted.first}{accepted.last}</h1>
-            <Link to={`/user/${accepted.id}`}> <img src={accepted.url} alt="Profile Pic"/></Link>
-            <button onClick={() => {this.props.dispatch(terminateFriends(accepted.id))}}>Unfriend</button>
+            <h1>{accepted.first} {accepted.last}</h1>
+            <Link to={`/user/${accepted.id}`}> <img src={accepted.url || "/img/profile_pic.jpg"} alt="Profile Pic"/></Link>
+            <button id="unfriend-button" onClick={() => {this.props.dispatch(terminateFriends(accepted.id))}}>Unfriend</button>
         </div>
     ))
 
         return (<div>
-            <div>
-                <h1>Pending Friends:</h1> {pendingFriendsList}
-                <h1>Accepted Friends:</h1> {acceptedFriendsList}
+            <div className="pendaccept-container">
+                <div id="pendinglist-container">
+                    <h1 className="pending-and-accept">Pending Friends:{pendingFriendsList}</h1>
+                </div>
+                <div id="acceptedlist-container">
+                    <h1 className="pending-and-accept">Accepted Friends:</h1>
+                    <div id="accepted-friends">{acceptedFriendsList}</div>
+                </div>
             </div>
         </div>)
     }

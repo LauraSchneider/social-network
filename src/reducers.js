@@ -1,10 +1,7 @@
-
 export default function(state = {}, action) {
-    console.log("ACTION REDUCER", action);
+    // console.log("ACTION REDUCER", action);
     if (action.type === 'GET_FRIENDS') {
-        state = Object.assign({}, state, {
-            friends: action.friends
-        });
+        state = Object.assign({}, state, {friends: action.friends});
 
     }
     if (action.type === 'ACCEPT_FRIENDS') {
@@ -13,7 +10,7 @@ export default function(state = {}, action) {
                 if (friend.id == action.id) {
                     // console.log("checking reducers State.friends", state.friends);
 
-                    return Object.assign({}, friend,{status: 2})
+                    return Object.assign({}, friend, {status: 2})
                 } else {
                     return Object.assign({}, friend);
                 }
@@ -23,7 +20,7 @@ export default function(state = {}, action) {
         });
     }
     if (action.type === 'TERMINATE_FRIENDS') {
-        console.log("ACTION!!!!", action);
+        // console.log("ACTION!!!!", action);
         state = Object.assign({}, state, {
 
             friends: state.friends.map(friend => {
@@ -36,6 +33,38 @@ export default function(state = {}, action) {
         })
     }
 
+    if (action.type === 'ONLINE_USERS') {
+        state = Object.assign({}, state, {onlineUsers: action.users});
+    }
 
-    return state;//to check if you successfully updated the state, log 'state' right before return
+    if (action.type === 'USER_JOINED') {
+        if (state.onlineUsers) {
+            state = Object.assign({}, state, {
+                onlineUsers: state.onlineUsers.concat(action.user)
+
+            });
+
+        }
+    }
+
+    if (action.type === 'USER_LEFT') {
+
+        const newUsers = state.onlineUsers.filter(user => {
+            return user.id != action.userId;
+        });
+
+        state = Object.assign({}, state, {onlineUsers: newUsers});
+    }
+
+    if (action.type ==='CHATS_MESSAGES') {
+
+        state = Object.assign({}, state, {chats: action.messages})
+    }
+
+    if (action.type ==='SINGLE_CHAT_MESSAGE') {
+        state = Object.assign({}, state, {
+            chats: state.chats.concat(action.singleChatMessage)
+        })
+    }
+    return state; //to check if you successfully updated the state, log 'state' right before return
 }

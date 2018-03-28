@@ -131,14 +131,39 @@ function getFriends(userID) {
     });
 }
 
+function getUsersByIds(arrayOfIds) {
+    const query = `SELECT id, first, last
+    FROM users
+    WHERE id = ANY($1)`;
+    return db.query(query, [arrayOfIds]);
+}
+
+function newOnlineUser(id) {
+    return new Promise((resolve, reject) => {
+        const q = `
+    SELECT id, first, last
+    FROM users
+    WHERE id = $1
+    `;
+        const params = [id];
+        db.query(q, params).then(results => {
+            resolve(results.rows[0]);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 module.exports = {
-insertUserInfo,
-checkCredentials,
-getUserInfo,
-updatePic,
-updateBio,
-makeFriend,
-getStatus,
-updateRequest,
-getFriends
+    insertUserInfo,
+    checkCredentials,
+    getUserInfo,
+    updatePic,
+    updateBio,
+    makeFriend,
+    getStatus,
+    updateRequest,
+    getFriends,
+    getUsersByIds,
+    newOnlineUser
 };

@@ -1,17 +1,36 @@
 import React from 'react';
-import axios from './axios';
+import ProfilePic from './profilepic'
+import ProfilePicUpload from './profilepicupload'
+import BioUpload from './bioUpload';
 
 export default class Profile extends React.Component {
     constructor(props) {
         super(props);
-
     }
     render() {
+        const {first, last, url, bio, toggleUploader, toggleBio, showUploader, showBio, setBio, setImage } = this.props
         return (
-            <div>
-                <h1 onClick={this.props.toggleBio}>
-                    {this.props.bio}
-                </h1>
+            <div className="profile-back">
+                <p id="app-user-greeting">Welcome { first } {last}</p>
+                <div id="pic-bio-container">
+
+                    <ProfilePic
+                        first={first}
+                        last={last}
+                        url={url}
+                        toggleUploader={toggleUploader}
+                        toggleBio={toggleBio}
+                    />
+                    { showUploader && <ProfilePicUpload setImage={ setImage }/> }
+
+                    <p onClick={toggleBio}>BIO</p>
+
+                    { showBio && <BioUpload setBio={ setBio }/> }
+
+                    <div id="bio-result-container">
+                        <p>{bio}</p>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -1,14 +1,13 @@
 //CLIENT SIDE
 import React from 'react';
 import axios from './axios';
-import ProfilePic from './profilepic'
-import ProfilePicUpload from './profilepicupload'
 import Logo from './logo';
 import Profile from './profile';
-import {BrowserRouter, Route} from 'react-router-dom';
-import BioUpload from './bioUpload';
+import {BrowserRouter, Route, Link} from 'react-router-dom';
 import OtherProfile from './otherprofile';
 import Friends from './friends';
+import OnlineFriends from './onlinefriends';
+import Chat from './chat';
 
 
 export default class App extends React.Component {
@@ -28,7 +27,6 @@ export default class App extends React.Component {
         this.toggleUploader = this.toggleUploader.bind(this);
         this.toggleBio = this.toggleBio.bind(this);
         this.setBio = this.setBio.bind(this);
-
     }
     toggleUploader() {
         this.setState({
@@ -36,6 +34,7 @@ export default class App extends React.Component {
         })
     }
     toggleBio() {
+        console.log("running toggleBIO");
         this.setState({
             showBio: !this.state.showBio
         })
@@ -64,9 +63,9 @@ export default class App extends React.Component {
     }
 
     setBio(bio) {
+        console.log("running setBIO");
         this.setState({bio})
-}
-
+    }
 
     render() {
         const {
@@ -75,51 +74,52 @@ export default class App extends React.Component {
             url,
             email,
             bio,
-            showUploader
+            showUploader,
+            showBio
         } = this.state
         return (
             <div>
-                <div id="app-logo-container">
-            <Logo/>
-            </div>
-            <p id="app-user-greeting">Welcome {first}
-                at {email}</p>
-            <ProfilePic
-                first={first}
-                last={last}
-                url={url}
-                toggleUploader={this.toggleUploader}
-
-                />
-             {showUploader && <ProfilePicUpload setImage={this.setImage}
-                />
-
-    }
-    { this.state.showBio && <BioUpload setBio={this.setBio}
-    />}
-                <BrowserRouter>
-                <div>
-                    <Route
-                        path="/"
-                        render={() => (
-                            <Profile
-                                first={first}
-                                last={last}
-                                url={url}
-                                bio={bio}
-                                setBio={this.setBio}
-                                toggleBio={this.toggleBio}
-                            />
-
-
-                        )}
-                    />
-                    <Route exact path="/user/:id" component={ OtherProfile } />
-
-                    <Route exact path="/friends" component={ Friends }/>
+                <div id = "app-logo-container" >
+                    <Logo/>
                 </div>
-            </BrowserRouter>
 
-        </div>)
+
+                <BrowserRouter>
+                    <div>
+                        <nav>
+                             <ul>
+                                <li><Link to="/">Profile</Link></li>
+                                <li><Link to="/friends">Friends</Link></li>
+                                <li><Link to="/onlinefriends">Online Friends</Link></li>                                    <li><Link to="/chat">Chat</Link></li>
+                                <li><a href="/logout">Log Out</a></li>
+                        
+
+                             </ul>
+                        </nav>
+
+
+                        <Route path="/" exact render={() => (
+                                <Profile
+                                    first={first}
+                                    last={last}
+                                    url={url}
+                                    bio={bio}
+                                    showUploader={showUploader}
+                                    setBio={this.setBio}
+                                    toggleBio={this.toggleBio}
+                                    toggleUploader={this.toggleUploader}
+                                    showBio={showBio}
+                                    setImage={this.setImage}
+                                />
+                            )}
+                        />
+                        <Route exact path="/user/:id" component={OtherProfile}/>
+                        <Route exact path="/friends" component={Friends}/>
+                        <Route exact path="/onlinefriends" component={OnlineFriends}/>
+                        <Route exact path="/chat" component={Chat}/>
+                    </div>
+                </BrowserRouter>
+            </div>
+        )
     }
 }

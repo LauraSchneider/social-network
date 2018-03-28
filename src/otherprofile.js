@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from './axios';
-import FriendRequestButton from './friendrequestbutton'
+import FriendRequestButton from './friendrequestbutton';
+
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
@@ -10,8 +11,8 @@ export default class OtherProfile extends React.Component {
             first: '',
             last: '',
             email: '',
-            url: './images/default.jpg',
-            bio: 'Default Bio'
+            url: '/img/profile_pic.jpg',
+            bio: 'No bio yet'
         };
         this.updateStatus=this.updateStatus.bind(this)
     }
@@ -49,11 +50,11 @@ updateStatus(newStatus) {
         return(
             <div>
                 <p>
-                    Hello {first} {last} at {email}!
+                    {first} {last}
                 </p>
                 <img id="profilepic" src={url} alt="Profile Picture"/>
                 <p>{bio}</p>
-                <FriendRequestButton
+                <FriendRequestButton className="request-button"
                     recipient_id={recipient_id}
                     sender_id={sender_id}
                     status={status}

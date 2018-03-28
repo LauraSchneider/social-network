@@ -13,6 +13,8 @@ const uidSafe = require('uid-safe');
 const path = require('path');
 const s3 = require('./config/s3.js');
 const {s3Url} = require("./config/config.json");
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {origins: 'localhost:8080'});
 
 app.use(express.static(__dirname + "/public"));
 
@@ -26,12 +28,20 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
-app.use(cookieSession({
-    secret: "a really hard to guess secret",
-    maxAge: 1000 * 60 * 60 * 24 * 14
-}));
+const cookieSessionMiddleware = cookieSession({
+    secret: 'a very secretive secret',
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
 
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 var diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -79,13 +89,71 @@ function hashPassword(plainTextPassword) {
     });
 }
 
-
 app.use(csrf());
 
 app.use(function(req, res, next) {
     res.cookie('mytoken', req.csrfToken());
     next();
 });
+
+///////SOCKET SECTION/////////////////
+
+let onlineUsers = [],
+    messages = [];
+
+const getOnlineUsers = () => {
+    let ids = onlineUsers.map(user => user.userId); //map returns a new array & iterates over each item in an array like the forEach (except forEach doesn't return a new array)
+
+    ids = ids.filter((id, i) => ids.indexOf(id) == i); //filter iterates thru each item of an array just like map does.
+    return db.getUsersByIds(ids);
+};
+
+io.on('connection', function(socket) {
+    console.log(`socket with the id ${socket.id} is now connected`);
+    if (!socket.request.session || !socket.request.session.id) {
+        return socket.disconnect(true);
+    }
+
+    socket.on('disconnect', function() {
+        console.log(`socket with the id ${socket.id} is now disconnected`);
+        onlineUsers = onlineUsers.filter(user => {
+            return user.userId != userId;
+        });
+        socket.broadcast.emit('userLeft', userId);
+    });
+
+    const userId = socket.request.session.id;
+
+    onlineUsers.push({userId, socketId: socket.id});
+
+    getOnlineUsers().then(results => {
+        socket.emit('onlineUsers', results.rows);
+    });
+    db.newOnlineUser(userId).then(results => {
+        console.log("results", results);
+        socket.broadcast.emit('userJoined', results);
+    });
+
+    //'chats' is the entire array being pushed into the store
+    socket.emit('chats', messages);
+    socket.on('chatMessage', message => {
+        db.getUserInfo(userId).then(results => {
+            const {first, last, email, url} = results;
+            const singleChatMessage = {
+                message,
+                first,
+                last,
+                email,
+                url
+            };
+            messages.push(singleChatMessage);
+            io.sockets.emit('singleChat', singleChatMessage)
+        });
+    });
+
+});
+
+///////ROUTES////////////////
 
 app.post('/registration', (req, res) => {
     if (!req.body.first || !req.body.last || !req.body.email || !req.body.password) {
@@ -219,32 +287,29 @@ app.post(`/acceptfriendrequest/:recipient_id`, (req, res) => {
 
 app.post(`/terminatefriendrequest/:recipient_id`, (req, res) => {
     db.updateRequest(4, req.params.recipient_id, req.session.id).then(results => {
-        res.json({success: true,
-            status: results.status,
-            recipient_id: results.recipient
-        });
+        res.json({success: true, status: results.status, recipient_id: results.recipient});
     });
 });
 
 app.get('/getfriends', (req, res) => {
-    db.getFriends(req.session.id).then(results => {
-        if (results.url) {
-            results.url = s3Url + results.url;
-        }
-        // console.log("RESULTS RESULTS", results);
-        res.json({
-            success: true,
-            friends: results
-
+    db.getFriends(req.session.id).then(friends => {
+        friends.forEach(friend => {
+            if (friend.url)
+                friend.url = s3Url + friend.url;
         });
-
+        res.json({success: true, friends});
     });
+});
+
+app.get('/logout', (req, res) => {
+    req.session = null;
+    res.redirect('/welcome');
 });
 
 app.get('*', function(req, res) { //catch all route --> you can tell by the star
     res.sendFile(__dirname + '/index.html');
 });
 
-app.listen(8080, () => {
+server.listen(8080, () => {
     console.log("I'm listening.");
 });
