@@ -37,11 +37,12 @@ enterChatMessage(e) {
     render() {
         return (
             <div>
-            <div>{this.renderChats()}</div>
+            <div id="chat-container">
+                <div id="render">{this.renderChats()}</div>
                 <form className="chat-container">
                     <textarea id="chat-form" placeholder="Insert text here. Hit Enter to send." onKeyDown={this.enterChatMessage} name="chatbox"></textarea>
-
                 </form>
+            </div>
         </div>
         )
     }

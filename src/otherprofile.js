@@ -52,7 +52,7 @@ updateStatus(newStatus) {
                 <p>
                     {first} {last}
                 </p>
-                <img id="profilepic" src={url} alt="Profile Picture"/>
+                <img id="otherprofilepic" src={url} alt="Profile Picture"/>
                 <p>{bio}</p>
                 <FriendRequestButton className="request-button"
                     recipient_id={recipient_id}

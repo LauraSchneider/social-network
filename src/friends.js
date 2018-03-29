@@ -17,8 +17,6 @@ class Friends extends React.Component {
 
     componentDidMount() {
         this.props.dispatch(getFriends())
-        // this.props.dispatch(terminateFriendship())
-
     }
     //right after html has loaded, the list of friends is shown on page
 
@@ -29,14 +27,14 @@ class Friends extends React.Component {
         const pendingFriendsList = this.props.pendingFriends.map((pending, id) => (
         <div key={id}>
             <h1>{pending.first} {pending.last}</h1>
-            <Link to={`/user/${pending.id}`}> <img src={pending.url || "/img/profile_pic.jpg"} alt="Profile Pic"/></Link>
-            <button onClick={() =>{this.props.dispatch(acceptFriends(pending.id))}}>Accept</button>
+            <Link to={`/user/${pending.id}`}> <img className="otherprofilepic" src={pending.url || "/img/profile_pic.jpg"} alt="Profile Pic"/></Link>
+            <button id="accept-button" onClick={() =>{this.props.dispatch(acceptFriends(pending.id))}}>Accept</button>
         </div>
     ))
         const acceptedFriendsList = this.props.acceptedFriends.map((accepted, id) => (
         <div key={id}>
             <h1>{accepted.first} {accepted.last}</h1>
-            <Link to={`/user/${accepted.id}`}> <img src={accepted.url || "/img/profile_pic.jpg"} alt="Profile Pic"/></Link>
+            <Link to={`/user/${accepted.id}`}> <img className="otherprofilepic" src={accepted.url || "/img/profile_pic.jpg"} alt="Profile Pic"/></Link>
             <button id="unfriend-button" onClick={() => {this.props.dispatch(terminateFriends(accepted.id))}}>Unfriend</button>
         </div>
     ))
@@ -44,11 +42,13 @@ class Friends extends React.Component {
         return (<div>
             <div className="pendaccept-container">
                 <div id="pendinglist-container">
-                    <h1 className="pending-and-accept">Pending Friends:{pendingFriendsList}</h1>
+                    <h1 className="pending-and-accept">Pending Friends:</h1>
+                    <div className="friends">{pendingFriendsList}</div>
+
                 </div>
                 <div id="acceptedlist-container">
                     <h1 className="pending-and-accept">Accepted Friends:</h1>
-                    <div id="accepted-friends">{acceptedFriendsList}</div>
+                    <div className="friends">{acceptedFriendsList}</div>
                 </div>
             </div>
         </div>)

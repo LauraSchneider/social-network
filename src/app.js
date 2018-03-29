@@ -34,7 +34,6 @@ export default class App extends React.Component {
         })
     }
     toggleBio() {
-        console.log("running toggleBIO");
         this.setState({
             showBio: !this.state.showBio
         })
@@ -79,7 +78,7 @@ export default class App extends React.Component {
         } = this.state
         return (
             <div>
-                <div id = "app-logo-container" >
+                <div id="app-logo-container">
                     <Logo/>
                 </div>
 
@@ -90,9 +89,9 @@ export default class App extends React.Component {
                              <ul>
                                 <li><Link to="/">Profile</Link></li>
                                 <li><Link to="/friends">Friends</Link></li>
-                                <li><Link to="/onlinefriends">Online Friends</Link></li>                                    <li><Link to="/chat">Chat</Link></li>
+                                <li><Link to="/onlinefriends">Online Friends</Link></li>                            <li><Link to="/chat">Chat</Link></li>
                                 <li><a href="/logout">Log Out</a></li>
-                        
+
 
                              </ul>
                         </nav>

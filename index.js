@@ -157,7 +157,7 @@ io.on('connection', function(socket) {
 
 app.post('/registration', (req, res) => {
     if (!req.body.first || !req.body.last || !req.body.email || !req.body.password) {
-        res.json({success: false, errorMessage: "Please fill out ALL fields"});
+        res.json({success: false, errorMessage: "Please fill out all fields."});
     } else {
         hashPassword(req.body.password).then(hash => {
             db.insertUserInfo(req.body.first, req.body.last, req.body.email, hash).then(results => {
@@ -175,7 +175,7 @@ app.post('/registration', (req, res) => {
 
 app.post('/login', (req, res) => {
     if (!req.body.email || !req.body.password) {
-        res.json({success: false, errorMessage: "Please fill out ALL fields"});
+        res.json({success: false, errorMessage: "Please fill out all fields."});
     } else {
         db.checkCredentials(req.body.email).then(results => {
             checkPassword(req.body.password, results.rows[0].hash).then(doesMatch => {

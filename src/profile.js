@@ -11,9 +11,7 @@ export default class Profile extends React.Component {
         const {first, last, url, bio, toggleUploader, toggleBio, showUploader, showBio, setBio, setImage } = this.props
         return (
             <div className="profile-back">
-                <p id="app-user-greeting">Welcome { first } {last}</p>
                 <div id="pic-bio-container">
-
                     <ProfilePic
                         first={first}
                         last={last}
@@ -23,11 +21,12 @@ export default class Profile extends React.Component {
                     />
                     { showUploader && <ProfilePicUpload setImage={ setImage }/> }
 
-                    <p onClick={toggleBio}>BIO</p>
+                
 
                     { showBio && <BioUpload setBio={ setBio }/> }
 
                     <div id="bio-result-container">
+                        <p id="app-user-greeting">Profile</p>
                         <p>{bio}</p>
                     </div>
                 </div>

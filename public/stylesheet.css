@@ -38,9 +38,10 @@ html, .welcome-body {
 .welcome-form-container {
     display: flex;
 /*         border: 2px red solid; */
+flex-direction: column;
     justify-content: center;
     padding: 1%;
-    width: 12%;
+    width: 15%;
     margin-left: 42%;
 }
 
@@ -82,6 +83,14 @@ input {
     color: #00a3ff;
 }
 
+
+.error {
+    font-family: 'Cabin', sans-serif;
+    font-size: 20px;
+    color: red;
+    padding: 2%;
+/*     border: 3px red solid; */
+}
 /* --------Login---------------------------------------------- */
 
 #login-container {
@@ -160,10 +169,12 @@ input {
     font-size: 35px;
 }
 
-/* --------current user page---------------------------------------------- */
+/* --------Profile/current user page---------------------------------------------- */
 
 .logo {
-    /*     border: 3px green solid; */
+/*         border: 3px green solid; */
+        height: 80px;
+        width: 80px;
 }
 
 #app-logo-container {
@@ -176,37 +187,49 @@ input {
     display: flex;
     justify-content: center;
     width: 100%;
-    /*     background-image:url("./img/user2-background.jpg");
-    background-repeat:repeat;
-    background-position:bottom; */
-    /*     background-size:contain */
-    /*     opacity: 1; */
-    /*     z-index: -1; */
 }
 
 #profilepicupload {
-         border: 8px #37628d solid;
+/*          border: 8px #37628d solid; */
 /*     height: 250px; */
     border-radius: 30px;
+    height: 250px;
+    width: 220px;
 
 
 }
 
 #app-user-greeting {
-    /*     border: 2px blue dotted; */
+/*      border: 2px blue dotted; */
     display: flex;
-    justify-content: center;
-    /*     font-family: 'Cabin', sans-serif; */
-    font-family: 'Finger Paint', cursive;
-    color: rgb(255, 120, 120);
-    font-size: 38px;
-    margin-top: 4%;
+    justify-content: flex-start;
+    font-family: 'Cabin', sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 23px;
+    margin-top: -50px;
+    text-decoration: underline;
 }
 
 #profilepic-container {
-    border: 4px red solid;
+/*     border: 4px red solid; */
     padding-left: 2%;
-/*     height: 250px; */
+    height: 350px;
+
+}
+
+#upload-picture {
+    font-family: 'Cabin', sans-serif;
+    font-size: 20px;
+    border: 3px #fd23cf solid;
+    background-color: rgb(106, 155, 255);
+    height: 30px;
+    width: 160px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding-top: 3%;
+    margin-left: 11%;
+
 
 }
 
@@ -222,10 +245,9 @@ input {
 }
 
 #pic-bio-container {
-    border: 5px #349e2d solid;
+/*     border: 5px #349e2d solid; */
     display: flex;
-    /*     background-image:url(./img/user7-background.jpeg); */
-/*     height: 250px; */
+margin-top: 3%;
 }
 
 .bio-container {
@@ -250,13 +272,10 @@ input {
 }
 
 #bio-result-container {
-    border: 4px pink solid;
+/*     border: 4px pink solid; */
     padding: 5% 4% 0% 4%;
-    /*     font-family: 'Finger Paint', cursive; */
-    font-family: 'Finger Paint', cursive;
-    font-family: 'Bitter', serif;
-    font-size: 13px;
-    /*     background-size:contain */
+    font-family: 'Cabin', sans-serif;
+    font-size: 22px;
     color: rgb(106, 248, 255);
 }
 
@@ -273,48 +292,59 @@ input {
 }
 
 #editbio {
-    font-family: 'Finger Paint', cursive;
-    font-family: 'Bitter', serif;
-    font-size: 13px;
-    color: pink;
+    font-family: 'Cabin', sans-serif;
+    font-size: 20px;
+    border: 3px #fd23cf solid;
+    background-color: rgb(106, 155, 255);
+    height: 30px;
+    width: 160px;
+    border-radius: 10px;
+    margin-left: 11%;
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+   padding-top: 3%;
 }
-
 /* ---------friends page---------- */
 
 .pending-and-accept {
-    color: #5bc3ff;
+    color: #feffff;
     font-family: 'Cabin', sans-serif;
     font-size: 25px;
-    border: 3px white dotted;
+    margin-left: 5%;
+/*     border: 3px white dotted; */
 }
 
 .pendaccept-container {
-    border: 3px #11ff00 solid;
+/*     border: 3px #11ff00 solid; */
     display: flex;
+    padding-top:2%;
     /*     flex-direction: column; */
 }
 
 #pendinglist-container {
-    border: 3px blue solid;
+/*     border: 3px blue solid; */
     flex: 1;
 }
 
 #acceptedlist-container {
-    border: 3px hotpink solid;
-    flex: 1;
+/*     border: 3px hotpink solid; */
+    flex: 2;
     order: -1;
 }
 
 
-#accepted-friends {
-    border: 2px yellow dashed;
+.friends {
+/*     border: 2px yellow dashed; */
     font-family: 'Cabin', sans-serif;
-    font-size: 20px;
+    font-size: 14px;
     font-family: fantasy;
     color: #5bc3ff;
+    padding-left: 5%;
+
 }
 
-#unfriend-button {
+#unfriend-button, #accept-button {
     border: 3px #fd23cf solid;
     background-color: rgb(106, 155, 255);
     height: 30px;
@@ -322,12 +352,22 @@ input {
     font-family: 'Cabin', sans-serif;
     font-size: 15px;
     border-radius: 6px;
-    margin-left: 30%;
-    margin-top: 5%;
+    margin-left: 10%;
+
+
+
+}
+
+.otherprofilepic {
+    width: 200px;
+    height: 200px;
+  border: 3px #f6eaf7 solid;
+
 }
 /* ------Other profile user page-------- */
 #profilepic {
     border: 2px blue solid;
+
 
 }
 
@@ -335,11 +375,28 @@ input {
 /* ---------Online friends page---------- */
 
 .onlinefriends-container {
-    border: 3px red solid;
+/*     border: 3px red solid; */
+margin-top: 3%;
     font-family: 'Cabin', sans-serif;
     font-size: 15px;
     color: cornsilk;
     padding-left: 4%;
+}
+
+#online {
+/*     border: 3px red solid; */
+}
+
+#otherprofilepic {
+    height: 00px;
+    width: 200px;
+    border-radius: 30px;
+}
+
+#who-online {
+       font-size: 20px;
+    font-family: fantasy;
+    color: #5bc3ff;
 }
 
 /* ---------Chatpage---------- */
@@ -351,13 +408,35 @@ input {
     font-size: 25px;
 }
 
+#chat-container {
+/*     border-radius: 20px; */
+    border: 5px #49a8f7 solid;
+    background-color: azure;
+    height: 430px;
+    width: 600px;
+    margin-left: 28%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+}
+
+#chat-form {
+    border: 3px azure; solid;
+    width: 590px;
+    height: 90px;
+    background-color:#fff0c5;
+
+}
+
 /* ---------Nav--------------- */
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #2a3a87;
 }
 
 nav li {
@@ -368,10 +447,12 @@ nav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 15px 100px;
     text-decoration: none;
+    font-family: 'Bitter', serif;
+    font-size: 17px;
 }
 
 nav li a:hover {
-    background-color: #111;
+    background-color: #0d0969;
 }

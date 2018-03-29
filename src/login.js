@@ -47,7 +47,7 @@ export default class Login extends React.Component {
         return (
 
             <div id="login-container">
-                {this.state.error && <div>{this.state.errorMessage}</div>}
+
                 <div id="strip1-container">
                     <img src="./img/strip1.png"/>
                 </div>
@@ -61,6 +61,7 @@ export default class Login extends React.Component {
                     <p>Not registered yet? Click <Link id="register-link" to="/">here.</Link></p>
                 </div>
                 <div className="login-form-container">
+                    {this.state.error && <div id="login-error">{this.state.errorMessage}</div>}
                     <form>
                         <input onChange={this.handleChange} name="email" type="text" placeholder="Email"/>
                         <input onChange={this.handleChange} name="password" type="password" placeholder="Password"/>
