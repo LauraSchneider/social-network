@@ -11,10 +11,10 @@ export default function Welcome(props) {
             <div id="welcome">
 
             <HashRouter>
-<div>
+                <div>
                     <Route exact path="/" component={Registration} />
                     <Route path="/login" component={Login} />
-</div>
+                </div>
             </HashRouter>
 
             </div>
