@@ -1,9 +1,10 @@
-# Using this repo in development
+1. ## The Badass Adventure Seekers Social Network
 
-The `src` directory is where all of your client-side Javascript code should live. The file `src/start.js` is the entry point for your React application. All other files you use will either be imported by `start.js` or imported by files that are imported `start.js` (or imported by files that are imported by files that are imported by `start.js`, etc.).
+   **Tech Stack:** JavaScript, React.js, Redux, PostgreSQL, Node.js, Express.js, AWS S3 bucket, Socket.io, HTML, CSS
 
-To run your app in devlopment, you need to start two servers.
+   I built a social network single page application in three weeks during the SPICED Academy full stack web development program. The social network, The Badass Adeventure Seekers, is for people who enjoy outdoor activities.
 
-1. `bundle-server.js` - this server will listen on port 8081 and does nothing but compile the code in `src/start.js` and its dependencies into a single bundle which it serves from the url `/bundle.js`. It uses [`webpack-dev-middleware`](https://github.com/webpack/webpack-dev-middleware) to do this. This middleware keeps all the compiled files in memory and doesn't ever write a file to disk. Every time you edit one of the files in your bundle, it detects the change and automatically recompiles. Thus, you do not have to restart this process every time you make a change to one of your client-side Javascript files. After a change is saved, the updated `/bundle.js` will be available automatically.
+   A user is able to register, login, upload a profile photo and share some information about themselves which one can edit if needed. The user is able to see a list of his/her friends and pending friend requests, where s/he has the option to make, accept, cancel, and unfriend a friend. A chat group option is also available.
 
-2. `index.js` - this server listens on port 8080 and it is where all your normal express stuff should go. When `index.js` is running in development, requests for `/bundle.js` will cause a request to be made to `http://localhost:8081/bundle.js` and the result served (it uses the [`http-proxy-middleware`](https://github.com/chimurai/http-proxy-middleware) to do this). You can restart this server every time you make a server-side change and not have to wait for `bundle.js` to recompile before you can test the change.
+   [![img](https://github.com/LauraSchneider/social-network/raw/master/social_network_demo.gif)](https://github.com/LauraSchneider/social-network/blob/master/social_network_demo.gif)
+
